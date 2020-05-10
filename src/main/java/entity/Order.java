@@ -4,13 +4,14 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orderr")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @ManyToOne
@@ -60,4 +61,5 @@ public class Order {
     public void setProvider(Provider provider) {
         this.provider = provider;
     }
+
 }

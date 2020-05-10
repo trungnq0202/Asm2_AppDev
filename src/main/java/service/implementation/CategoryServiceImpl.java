@@ -38,6 +38,7 @@ public class CategoryServiceImpl implements service.CategoryService {
 
     @Override
     public Category save(Category category) {
+        System.out.println("cate ser" + category.getId());
         sessionFactory.getCurrentSession().save(category);
         return category;
     }

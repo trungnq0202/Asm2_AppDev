@@ -15,16 +15,27 @@ public class OrderDetail {
 
     private int quantity;
 
+    private float price;
+
     @ManyToOne
     private Product product;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int id, Order order, int quantity, Product product) {
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public OrderDetail(int id, Order order, int quantity, float price, Product product) {
         this.id = id;
         this.order = order;
         this.quantity = quantity;
+        this.price = price;
         this.product = product;
     }
 

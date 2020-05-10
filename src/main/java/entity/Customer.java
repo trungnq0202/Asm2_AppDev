@@ -14,12 +14,14 @@ public class Customer {
     private String email;
     private String phone;
     private String fax;
-    private String contact_person;
+
+    @Column(name = "contact_person")
+    private String contactPerson;
 
     public Customer() {
     }
 
-    public Customer(int id, String name, String address, String email,String phone, String fax, String contact_person) {
+    public Customer(int id, String name, String address, String email,String phone, String fax, String contactPerson) {
         super();
         this.id = id;
         this.name = name;
@@ -27,7 +29,7 @@ public class Customer {
         this.email = email;
         this.phone = phone;
         this.fax = fax;
-        this.contact_person = contact_person;
+        this.contactPerson = contactPerson;
     }
 
     public int getId() {
@@ -79,10 +81,10 @@ public class Customer {
     }
 
     public String getContact_person() {
-        return contact_person;
+        return contactPerson;
     }
 
-    public void setContact_person(String contact_person) {
-        this.contact_person = contact_person;
+    public void setContact_person(String contactPerson) {
+        this.contactPerson = contactPerson;
     }
 }

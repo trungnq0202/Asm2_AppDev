@@ -1,6 +1,5 @@
 package service.implementation;
 
-import entity.Order;
 import entity.OrderDetail;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -40,6 +39,12 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     public OrderDetail update(OrderDetail orderDetail) {
         sessionFactory.getCurrentSession().update(orderDetail);
         return orderDetail;
+    }
+
+    @Override
+    public List<OrderDetail> findAllByOrderId(int orderId) {
+        return sessionFactory.getCurrentSession().createQuery("from OrderDetail where order_id=:id")
+                .setInteger("id", orderId).list();
     }
 
     @Override

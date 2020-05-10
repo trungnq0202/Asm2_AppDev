@@ -31,6 +31,7 @@ public class CategoryController {
 
     @RequestMapping(path = "categories", method = RequestMethod.POST)
     public Category addCategory(@RequestBody Category category){
+        System.out.println("cate control" + category.getId());
         return categoryService.save(category);
     }
 

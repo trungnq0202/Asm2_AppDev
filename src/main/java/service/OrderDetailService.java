@@ -10,5 +10,6 @@ public interface OrderDetailService {
     public OrderDetail findById(int id);
     public OrderDetail save(OrderDetail orderDetail);
     public OrderDetail update(OrderDetail orderDetail);
+    public List<OrderDetail> findAllByOrderId(int orderId);
     public int delete(int id);
 }
