@@ -25,15 +25,6 @@ public class SalesInvoiceController {
         return salesInvoiceService.findById(id);
     }
 
-    @RequestMapping(path = "sales_invoices/{customerId}/{staffId}")
-    public List<SalesInvoice> getAllSalesInvoicesWithCustomerAndStaffInAPeriodOfTime(
-            @PathVariable int customerId, @PathVariable int staffId,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
-            ){
-        return salesInvoiceService.findByCustomerAndStaffInATimePeriod(customerId, staffId, startDate, endDate);
-    }
-
     @RequestMapping(path = "sales_invoices", method = RequestMethod.POST)
     public SalesInvoice addSalesInvoice(@RequestBody SalesInvoice salesInvoice){
         return salesInvoiceService.save(salesInvoice);

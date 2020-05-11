@@ -44,16 +44,7 @@ public class SalesInvoiceServiceImpl  implements SalesInvoiceService {
         return (SalesInvoice) query.uniqueResult();
     }
 
-    @Override
-    public List<SalesInvoice> findByCustomerAndStaffInATimePeriod(int customerId, int staffId, Date startDate, Date endDate) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from SalesInvoice where " +
-                "staff_id=:staffId and customer_id=:customerId and date>=:startDate and date<=:endDate ");
-        query.setInteger("customerId", customerId);
-        query.setInteger("staffId", staffId);
-        query.setDate("startDate", startDate);
-        query.setDate("endDate", endDate);
-        return query.list();
-    }
+
 
 
     @Override
