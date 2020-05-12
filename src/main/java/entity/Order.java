@@ -2,6 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orderr")
@@ -20,14 +21,26 @@ public class Order {
     @ManyToOne
     private Provider provider;
 
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
     public Order() {
     }
 
-    public Order(int id, Date date, Staff staff, Provider provider) {
+    public Order(int id, Date date, Staff staff, Provider provider, List<OrderDetail> orderDetails) {
         this.id = id;
         this.date = date;
         this.staff = staff;
         this.provider = provider;
+        this.orderDetails = orderDetails;
     }
 
     public int getId() {

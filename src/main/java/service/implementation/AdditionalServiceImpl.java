@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import service.AdditionalService;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-
 
 @Transactional
 @Service
@@ -30,18 +30,46 @@ public class AdditionalServiceImpl implements AdditionalService {
         return query.list();
     }
 
+    @Override
+    public Float findRevenueInATimePeriod(Date startDate, Date endDate) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("select sum(sid.totalvalue) " +
+                                                                                   "from sales_invoice si, sales_invoice_detail sid " +
+                                                                                   "where sid.salesinvoice_id = si.id " +
+                                                                                   "and si.date >= :startDate and si.date <= :endDate");
+        query.setDate("startDate", startDate);
+        query.setDate("endDate", endDate);
+        return (Float) query.list().get(0);
+    }
 
     @Override
-    public Double findRevenueInATimePeriod(Date startDate, Date endDate) {
-//        Query query = sessionFactory.getCurrentSession().createQuery("select sum(SID.totalValue) " +
-//                                                                                "from SalesInvoice SI, SalesInvoiceDetail SID " +
-//                                                                                "where SID.salesInvoice=:SI.id " +
-//                                                                                  "and SI.date>=:startDate " +
-//                                                                                  "and SI.date<=:endDate");
-        Query query = sessionFactory.getCurrentSession().createQuery("select sum(totalValue) from SalesInvoiceDetail");
-//        query.setDate("startDate", startDate);
-//        query.setDate("endDate", endDate);
-        return (Double) query.list().get(0);
+    public Float findRevenueByCustomerInATimePeriod(int customerId, Date startDate, Date endDate) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("select sum(sid.totalvalue) " +
+                                                                                  "from sales_invoice si, sales_invoice_detail sid " +
+                                                                                  "where sid.salesinvoice_id = si.id " +
+                                                                                  "and si.date >= :startDate and si.date <= :endDate " +
+                                                                                  "and si.customer_id = :customerId");
+        query.setDate("startDate", startDate);
+        query.setDate("endDate", endDate);
+        query.setInteger("customerId", customerId);
+        return (Float) query.list().get(0);
+    }
+
+    @Override
+    public Float findRevenueByStaffInATimePeriod(int staffId, Date startDate, Date endDate) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("select sum(sid.totalvalue) " +
+                                                                                  "from sales_invoice si, sales_invoice_detail sid " +
+                                                                                  "where sid.salesinvoice_id = si.id " +
+                                                                                  "and si.date >= :startDate and si.date <= :endDate " +
+                                                                                  "and si.staff_id = :staffId");
+        query.setDate("startDate", startDate);
+        query.setDate("endDate", endDate);
+        query.setInteger("staffId", staffId);
+        return (Float) query.list().get(0);
+    }
+
+    @Override
+    public HashMap<HashMap<Integer, String>, HashMap<String, Integer>> findInventoryStatus(Date startDate, Date endDate) {
+        return null;
     }
 
 

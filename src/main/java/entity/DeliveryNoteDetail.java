@@ -18,8 +18,6 @@ public class DeliveryNoteDetail {
 
     private int quantity;
 
-
-
     public DeliveryNoteDetail() {
     }
 
