@@ -1,7 +1,5 @@
 package entity;
 
-import jdk.internal.jline.internal.Nullable;
-
 import javax.persistence.*;
 
 @Entity

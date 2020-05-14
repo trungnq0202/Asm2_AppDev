@@ -1,11 +1,10 @@
 package controller;
 
 import entity.OrderDetail;
+import helper.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.OrderDetailService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/")
@@ -15,8 +14,8 @@ public class OrderDetailController {
     private OrderDetailService orderDetailService;
 
     @RequestMapping(path = "order_details/all", method = RequestMethod.GET)
-    public List<OrderDetail> getAllOrderDetails(){
-        return orderDetailService.findAll();
+    public PaginatedList<OrderDetail> getAllOrderDetails( @RequestParam int pageIndex, @RequestParam int pageSize){
+        return orderDetailService.findAll(pageIndex, pageSize);
     }
 
     @RequestMapping(path = "order_details/{id}", method = RequestMethod.GET)

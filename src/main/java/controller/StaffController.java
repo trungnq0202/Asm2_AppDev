@@ -1,11 +1,10 @@
 package controller;
 
 import entity.Staff;
+import helper.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.StaffService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/")
@@ -15,8 +14,10 @@ public class StaffController {
     private StaffService staffService;
 
     @RequestMapping(path = "staffs/all", method = RequestMethod.GET)
-    public List<Staff> getAllStaffs(){
-        return staffService.findAll();
+    public PaginatedList<Staff> getAllStaffs(
+            @RequestParam int pageIndex, @RequestParam int pageSize
+    ){
+        return staffService.findAll(pageIndex, pageSize);
     }
 
     @RequestMapping(path = "staffs/{id}", method = RequestMethod.GET)
@@ -24,9 +25,23 @@ public class StaffController {
         return staffService.findById(id);
     }
 
-    @RequestMapping(path = "staffs", method = RequestMethod.GET)
-    public List<Staff> getStaffByName(@RequestParam String name){
-        return staffService.findByName(name);
+    @RequestMapping(path = "staffs/by_name", method = RequestMethod.GET)
+    public PaginatedList<Staff> getStaffByName(@RequestParam String name,
+        @RequestParam int pageIndex, @RequestParam int pageSize
+    ){
+        return staffService.findByName(name, pageIndex, pageSize);
+    }
+
+    @RequestMapping(path = "staffs/by_phone", method = RequestMethod.GET)
+    public PaginatedList<Staff> getStaffByPhone(@RequestParam String phone
+            , @RequestParam int pageIndex, @RequestParam int pageSize){
+        return staffService.findByPhone(phone, pageIndex, pageSize);
+    }
+
+    @RequestMapping(path = "staffs/by_address", method = RequestMethod.GET)
+    public PaginatedList<Staff> getStaffByAddress(@RequestParam String address
+            , @RequestParam int pageIndex, @RequestParam int pageSize){
+        return staffService.findByAddress(address, pageIndex, pageSize);
     }
 
     @RequestMapping(path = "staffs", method = RequestMethod.POST)

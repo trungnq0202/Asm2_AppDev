@@ -1,11 +1,13 @@
 package controller;
 
 import entity.Order;
+import helper.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import service.OrderService;
 
-import java.util.List;
+import java.util.Date;
 
 @RestController
 @RequestMapping(path = "/")
@@ -15,8 +17,14 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping(path = "orders/all", method = RequestMethod.GET)
-    public List<Order> getAllOrders(){
-        return orderService.findAll();
+    public PaginatedList<Order> getAllOrders(@RequestParam int pageIndex, @RequestParam int pageSize){
+        return orderService.findAll(pageIndex, pageSize);
+    }
+
+    @RequestMapping(path = "orders/by_date", method = RequestMethod.GET)
+    public PaginatedList<Order> getAllOrdersByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date
+            , @RequestParam int pageIndex, @RequestParam int pageSize){
+        return orderService.findByDate(date, pageIndex, pageSize);
     }
 
     @RequestMapping(path = "orders/{id}", method = RequestMethod.GET)

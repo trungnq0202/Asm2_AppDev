@@ -1,7 +1,9 @@
 package service.implementation;
 
+import entity.Order;
 import entity.ReceivingNote;
 import entity.ReceivingNoteDetail;
+import helper.pagination.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,17 @@ public class ReceivingNoteDetailServiceImpl implements ReceivingNoteDetailServic
     private SessionFactory sessionFactory;
 
     @Override
-    public List<ReceivingNoteDetail> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("FROM ReceivingNoteDetail").list();
+    public PaginatedList<ReceivingNoteDetail> findAll(int pageIndex, int pageSize) {
+        PaginatedList<ReceivingNoteDetail> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM ReceivingNoteDetail");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from ReceivingNoteDetail").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+
+        return paginatedList;
     }
 
     @Override

@@ -1,10 +1,13 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "receiving_note")
+@Table(name = "receiving_note", uniqueConstraints = @UniqueConstraint(columnNames = {"order_id"}))
 public class ReceivingNote {
 
     @Id
@@ -20,6 +23,17 @@ public class ReceivingNote {
     @OneToOne
     private Order order;
 
+    @OneToMany(mappedBy = "receivingNote", fetch = FetchType.EAGER)
+    private List<ReceivingNoteDetail> receivingNoteDetails;
+
+    public List<ReceivingNoteDetail> getReceivingNoteDetails() {
+        return receivingNoteDetails;
+    }
+
+    public void setReceivingNoteDetails(List<ReceivingNoteDetail> receivingNoteDetails) {
+        this.receivingNoteDetails = receivingNoteDetails;
+    }
+
     public ReceivingNote() {
     }
 
@@ -31,11 +45,12 @@ public class ReceivingNote {
         this.order = order;
     }
 
-    public ReceivingNote(int id, Date date, Staff staff, Order order) {
+    public ReceivingNote(int id, Date date, Staff staff, Order order, List<ReceivingNoteDetail> receivingNoteDetails) {
         this.id = id;
         this.date = date;
         this.staff = staff;
         this.order = order;
+        this.receivingNoteDetails = receivingNoteDetails;
     }
 
     public int getId() {

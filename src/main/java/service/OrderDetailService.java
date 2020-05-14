@@ -2,14 +2,14 @@ package service;
 
 
 import entity.OrderDetail;
+import helper.pagination.PaginatedList;
 
 import java.util.List;
 
 public interface OrderDetailService {
-    public List<OrderDetail> findAll();
+    public PaginatedList<OrderDetail> findAll(int pageIndex, int pageSize);
     public OrderDetail findById(int id);
     public OrderDetail save(OrderDetail orderDetail);
     public OrderDetail update(OrderDetail orderDetail);
-    public List<OrderDetail> findAllByOrderId(int orderId);
     public int delete(int id);
 }

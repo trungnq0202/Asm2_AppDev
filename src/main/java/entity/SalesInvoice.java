@@ -2,9 +2,10 @@ package entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "sales_invoice")
+@Table(name = "sales_invoice", uniqueConstraints = @UniqueConstraint(columnNames = {"deliverynote_id"}))
 public class SalesInvoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,14 +23,26 @@ public class SalesInvoice {
     @OneToOne
     private DeliveryNote deliveryNote;
 
+    @OneToMany(mappedBy = "salesInvoice", fetch = FetchType.EAGER)
+    private List<SalesInvoiceDetail> salesInvoiceDetails;
+
     public SalesInvoice() {
     }
 
-    public SalesInvoice(int id, Staff staff, Customer customer, DeliveryNote deliveryNote) {
+    public List<SalesInvoiceDetail> getSalesInvoiceDetails() {
+        return salesInvoiceDetails;
+    }
+
+    public void setSalesInvoiceDetails(List<SalesInvoiceDetail> salesInvoiceDetails) {
+        this.salesInvoiceDetails = salesInvoiceDetails;
+    }
+
+    public SalesInvoice(int id, Staff staff, Customer customer, DeliveryNote deliveryNote, List<SalesInvoiceDetail> salesInvoiceDetails) {
         this.id = id;
         this.staff = staff;
         this.customer = customer;
         this.deliveryNote = deliveryNote;
+        this.salesInvoiceDetails = salesInvoiceDetails;
     }
 
     public Customer getCustomer() {

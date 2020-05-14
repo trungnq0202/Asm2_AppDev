@@ -1,6 +1,7 @@
 service\ProviderService.class
 service\ReceivingNoteDetailService.class
 service\implementation\SalesInvoiceDetailServiceImpl.class
+helper\model\InventoryNote.class
 entity\SalesInvoice.class
 entity\Staff.class
 service\DeliveryNoteService.class
@@ -15,11 +16,14 @@ controller\CategoryController.class
 controller\SalesInvoiceController.class
 controller\ProviderController.class
 controller\OrderController.class
+helper\model\InventoryNoteDetail.class
 service\AdditionalService.class
 entity\SalesInvoiceDetail.class
+helper\pagination\PaginatedList.class
 configuration\WebAppInitializer.class
 controller\CustomerController.class
 entity\Customer.class
+test\StaffControllerTest$1.class
 service\SalesInvoiceService.class
 service\implementation\SalesInvoiceServiceImpl.class
 controller\AdditionalController.class
@@ -30,9 +34,11 @@ controller\StaffController.class
 entity\ReceivingNote.class
 configuration\HibernateConfig.class
 service\implementation\CustomerServiceImpl.class
+test\StaffControllerTest.class
 entity\DeliveryNoteDetail.class
 controller\OrderDetailController.class
 service\OrderDetailService.class
+test\TestConfig.class
 entity\Category.class
 entity\Order.class
 entity\Provider.class

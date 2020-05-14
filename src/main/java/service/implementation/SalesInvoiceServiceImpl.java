@@ -1,18 +1,20 @@
 package service.implementation;
 
 import entity.DeliveryNoteDetail;
+import entity.Order;
 import entity.SalesInvoice;
 import entity.SalesInvoiceDetail;
+import helper.pagination.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import service.DeliveryNoteDetailService;
 import service.DeliveryNoteService;
 import service.SalesInvoiceDetailService;
 import service.SalesInvoiceService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,17 +26,38 @@ public class SalesInvoiceServiceImpl  implements SalesInvoiceService {
     private SessionFactory sessionFactory;
 
     @Autowired
-    private DeliveryNoteDetailService deliveryNoteDetailService;
-
-    @Autowired
     private SalesInvoiceDetailService salesInvoiceDetailService;
 
     @Autowired
     private DeliveryNoteService deliveryNoteService;
 
     @Override
-    public List<SalesInvoice> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("FROM SalesInvoice").list();
+    public PaginatedList<SalesInvoice> findAll(int pageIndex, int pageSize) {
+        PaginatedList<SalesInvoice> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM SalesInvoice");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from SalesInvoice").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+
+        return paginatedList;
+    }
+
+    @Override
+    public PaginatedList<SalesInvoice> findByDate(Date date, int pageIndex, int pageSize) {
+        PaginatedList<SalesInvoice> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("from SalesInvoice where date = :date");
+        query.setDate("date", date);
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from SalesInvoice where date = :date")
+                .setDate("date", date).uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
     }
 
     @Override
@@ -44,39 +67,59 @@ public class SalesInvoiceServiceImpl  implements SalesInvoiceService {
         return (SalesInvoice) query.uniqueResult();
     }
 
-
-
-
     @Override
     public SalesInvoice save(SalesInvoice salesInvoice) {
         //Copy Date from Delivery Note to Sales Invoice
         salesInvoice.setDate(deliveryNoteService.findById(salesInvoice.getDeliveryNote().getId()).getDate());
-        sessionFactory.getCurrentSession().save(salesInvoice);
+        salesInvoice.setSalesInvoiceDetails(new ArrayList<>());
 
-        //Get List of Delivery Details through Delivery Note id
-        List<DeliveryNoteDetail> deliveryNoteDetailList = deliveryNoteDetailService.findAllByDeliveryNoteId(salesInvoice.getDeliveryNote().getId());
-
-        //Add list of Order detail to Receiving Note Detail
-        for (DeliveryNoteDetail deliveryNoteDetail:deliveryNoteDetailList){
+        for (DeliveryNoteDetail deliveryNoteDetail: deliveryNoteService.findById(salesInvoice.getDeliveryNote().getId()).getDeliveryNoteDetails()){
             SalesInvoiceDetail salesInvoiceDetail = new SalesInvoiceDetail(0, salesInvoice,
                     deliveryNoteDetail.getProduct(), deliveryNoteDetail.getQuantity(),
                     deliveryNoteDetail.getProduct().getSelling_price() ,
                     deliveryNoteDetail.getQuantity() * deliveryNoteDetail.getProduct().getSelling_price());
+            salesInvoice.getSalesInvoiceDetails().add(salesInvoiceDetail);
             salesInvoiceDetailService.save(salesInvoiceDetail);
         }
-
+        sessionFactory.getCurrentSession().save(salesInvoice);
         return salesInvoice;
     }
 
     @Override
     public SalesInvoice update(SalesInvoice salesInvoice) {
-        sessionFactory.getCurrentSession().update(salesInvoice);
-        return salesInvoice;
+        SalesInvoice savedSalesInvoice = findById(salesInvoice.getId());
+        int oldDeliveryNoteId = savedSalesInvoice.getDeliveryNote().getId();
+        int newDeliveryNoteId = salesInvoice.getDeliveryNote().getId();
+
+        if (oldDeliveryNoteId != newDeliveryNoteId){
+            for (SalesInvoiceDetail salesInvoiceDetail:savedSalesInvoice.getSalesInvoiceDetails())
+                salesInvoiceDetailService.delete(salesInvoiceDetail.getId());
+            savedSalesInvoice.getSalesInvoiceDetails().clear();
+
+            for (DeliveryNoteDetail deliveryNoteDetail: deliveryNoteService.findById(salesInvoice.getDeliveryNote().getId()).getDeliveryNoteDetails()){
+                SalesInvoiceDetail salesInvoiceDetail = new SalesInvoiceDetail(0, salesInvoice,
+                        deliveryNoteDetail.getProduct(), deliveryNoteDetail.getQuantity(),
+                        deliveryNoteDetail.getProduct().getSelling_price() ,
+                        deliveryNoteDetail.getQuantity() * deliveryNoteDetail.getProduct().getSelling_price());
+                savedSalesInvoice.getSalesInvoiceDetails().add(salesInvoiceDetail);
+                salesInvoiceDetailService.save(salesInvoiceDetail);
+            }
+        }
+
+        savedSalesInvoice.setDate(salesInvoice.getDate());
+        savedSalesInvoice.setStaff(salesInvoice.getStaff());
+        savedSalesInvoice.setCustomer(salesInvoice.getCustomer());
+        savedSalesInvoice.setDeliveryNote(salesInvoice.getDeliveryNote());
+
+        sessionFactory.getCurrentSession().update(savedSalesInvoice);
+        return savedSalesInvoice;
     }
 
     @Override
     public int delete(int id) {
         SalesInvoice salesInvoice = findById(id);
+        for (SalesInvoiceDetail salesInvoiceDetail: salesInvoice.getSalesInvoiceDetails())
+            salesInvoiceDetailService.delete(salesInvoiceDetail.getId());
         sessionFactory.getCurrentSession().delete(salesInvoice);
         return id;
     }

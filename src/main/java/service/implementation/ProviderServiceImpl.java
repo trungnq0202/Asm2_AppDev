@@ -1,6 +1,8 @@
 package service.implementation;
 
 import entity.Provider;
+import entity.Staff;
+import helper.pagination.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,16 @@ public class ProviderServiceImpl implements ProviderService {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Provider> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("FROM Provider").list();
+    public PaginatedList<Provider> findAll(int pageIndex, int pageSize) {
+        PaginatedList<Provider> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM Provider");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Provider").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
     }
 
     @Override
@@ -29,10 +39,48 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Override
-    public List<Provider> findByName(String name) {
+    public PaginatedList<Provider> findByName(String name, int pageIndex, int pageSize){
+        PaginatedList<Provider> paginatedList = new PaginatedList<>();
         Query query = sessionFactory.getCurrentSession().createQuery("from Provider where name like :name");
         query.setString("name", "%"+name+"%");
-        return query.list();
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Provider where name like :name")
+                .setString("name", "%"+name+"%").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
+    }
+
+    @Override
+    public PaginatedList<Provider> findByAddress(String address, int pageIndex, int pageSize) {
+        PaginatedList<Provider> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("from Provider where address like :address");
+        query.setString("address", "%"+address+"%");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Provider where address like :address")
+                .setString("address", "%"+address+"%").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
+    }
+
+    @Override
+    public PaginatedList<Provider> findByPhone(String phone, int pageIndex, int pageSize) {
+        PaginatedList<Provider> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("from Provider where phone like :phone");
+        query.setString("phone", "%"+phone+"%");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Provider where phone like :phone")
+                .setString("phone", "%"+phone+"%").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
     }
 
     @Override

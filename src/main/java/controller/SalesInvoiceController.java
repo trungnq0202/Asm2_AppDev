@@ -1,6 +1,7 @@
 package controller;
 
 import entity.SalesInvoice;
+import helper.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,14 @@ public class SalesInvoiceController {
     private SalesInvoiceService salesInvoiceService;
 
     @RequestMapping(path = "sales_invoices/all", method = RequestMethod.GET)
-    public List<SalesInvoice> getAllSalesInvoices(){
-        return salesInvoiceService.findAll();
+    public PaginatedList<SalesInvoice> getAllSalesInvoices(@RequestParam int pageIndex, @RequestParam int pageSize){
+        return salesInvoiceService.findAll(pageIndex, pageSize);
+    }
+
+    @RequestMapping(path = "sales_invoices/by_date", method = RequestMethod.GET)
+    public PaginatedList<SalesInvoice> getAllSalesInvoicesByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date
+            , @RequestParam int pageIndex, @RequestParam int pageSize){
+        return salesInvoiceService.findByDate(date, pageIndex, pageSize);
     }
 
     @RequestMapping(path = "sales_invoices/{id}", method = RequestMethod.GET)

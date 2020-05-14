@@ -1,6 +1,7 @@
 package controller;
 
 import entity.Category;
+import helper.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.CategoryService;
@@ -15,8 +16,10 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @RequestMapping(path = "categories/all", method = RequestMethod.GET)
-    public List<Category> getAllCategories(){
-        return categoryService.findAll();
+    public PaginatedList<Category> getAllCategories(
+            @RequestParam int pageIndex, @RequestParam int pageSize
+    ){
+        return categoryService.findAll(pageIndex, pageSize);
     }
 
     @RequestMapping(path = "categories/{id}", method = RequestMethod.GET)
@@ -25,8 +28,9 @@ public class CategoryController {
     }
 
     @RequestMapping(path = "categories", method = RequestMethod.GET)
-    public List<Category> getCategoriesByName(@RequestParam String name){
-        return categoryService.findByName(name);
+    public PaginatedList<Category> getCategoriesByName(@RequestParam String name
+        , @RequestParam int pageIndex, @RequestParam int pageSize){
+        return categoryService.findByName(name, pageIndex, pageSize);
     }
 
     @RequestMapping(path = "categories", method = RequestMethod.POST)

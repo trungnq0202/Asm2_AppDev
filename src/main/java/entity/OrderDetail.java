@@ -1,5 +1,7 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class OrderDetail {
     private int id;
 
     @ManyToOne
+    @JsonIgnore
     private Order order;
 
     private int quantity;

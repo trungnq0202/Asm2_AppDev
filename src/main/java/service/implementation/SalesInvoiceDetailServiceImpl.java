@@ -1,14 +1,13 @@
 package service.implementation;
 
 import entity.SalesInvoiceDetail;
+import helper.pagination.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import service.SalesInvoiceDetailService;
-
-import java.util.List;
 
 @Transactional
 @Service
@@ -17,10 +16,18 @@ public class SalesInvoiceDetailServiceImpl implements SalesInvoiceDetailService 
     @Autowired
     private SessionFactory sessionFactory;
 
-
     @Override
-    public List<SalesInvoiceDetail> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("FROM SalesInvoiceDetail").list();
+    public PaginatedList<SalesInvoiceDetail> findAll(int pageIndex, int pageSize) {
+        PaginatedList<SalesInvoiceDetail> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM SalesInvoiceDetail");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from SalesInvoiceDetail").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+
+        return paginatedList;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package service.implementation;
 
 import entity.OrderDetail;
+import helper.pagination.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import service.OrderDetailService;
 
-import java.util.List;
 
 @Transactional
 @Service
@@ -18,8 +18,17 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<OrderDetail> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("FROM OrderDetail").list();
+    public PaginatedList<OrderDetail> findAll(int pageIndex, int pageSize) {
+        PaginatedList<OrderDetail> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM OrderDetail");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from OrderDetail").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+
+        return paginatedList;
     }
 
     @Override
@@ -41,11 +50,6 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return orderDetail;
     }
 
-    @Override
-    public List<OrderDetail> findAllByOrderId(int orderId) {
-        return sessionFactory.getCurrentSession().createQuery("from OrderDetail where order_id=:id")
-                .setInteger("id", orderId).list();
-    }
 
     @Override
     public int delete(int id) {

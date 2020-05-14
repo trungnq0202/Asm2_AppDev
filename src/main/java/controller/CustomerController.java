@@ -1,6 +1,7 @@
 package controller;
 
 import entity.Customer;
+import helper.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.CustomerService;
@@ -15,8 +16,8 @@ public class CustomerController {
     private CustomerService customerService;
 
     @RequestMapping(path = "customers/all", method = RequestMethod.GET)
-    public List<Customer> getAllCustomers(){
-        return customerService.findAll();
+    public PaginatedList<Customer> getAllCustomers(@RequestParam int pageIndex, @RequestParam int pageSize){
+        return customerService.findAll(pageIndex, pageSize);
     }
 
     @RequestMapping(path = "customers/{id}", method = RequestMethod.GET)
@@ -24,9 +25,19 @@ public class CustomerController {
         return customerService.findById(id);
     }
 
-    @RequestMapping(path = "customers", method = RequestMethod.GET)
-    public List<Customer> getCustomersByName(@RequestParam String name){
-        return customerService.findByName(name);
+    @RequestMapping(path = "customers/by_name", method = RequestMethod.GET)
+    public PaginatedList<Customer> getCustomersByName(@RequestParam String name, @RequestParam int pageIndex, @RequestParam int pageSize){
+        return customerService.findByName(name, pageIndex, pageSize);
+    }
+
+    @RequestMapping(path = "customers/by_phone", method = RequestMethod.GET)
+    public PaginatedList<Customer> getCustomersByPhone(@RequestParam String phone, @RequestParam int pageIndex, @RequestParam int pageSize){
+        return customerService.findByName(phone, pageIndex, pageSize);
+    }
+
+    @RequestMapping(path = "customers/by_address", method = RequestMethod.GET)
+    public PaginatedList<Customer> getCustomersByAddress(@RequestParam String address, @RequestParam int pageIndex, @RequestParam int pageSize){
+        return customerService.findByName(address, pageIndex, pageSize);
     }
 
     @RequestMapping(path = "customers", method = RequestMethod.POST)

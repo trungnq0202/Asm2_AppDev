@@ -1,13 +1,16 @@
 package service;
 
 import entity.Staff;
+import helper.pagination.PaginatedList;
 
 import java.util.List;
 
 public interface StaffService {
-    public List<Staff> findAll();
+    public PaginatedList<Staff> findAll(int pageIndex, int pageSize);
     public Staff findById(int id);
-    public List<Staff> findByName(String name);
+    public PaginatedList<Staff> findByName(String name, int pageIndex, int pageSize);
+    public PaginatedList<Staff> findByAddress(String address, int pageIndex, int pageSize);
+    public PaginatedList<Staff> findByPhone(String phone, int pageIndex, int pageSize);
     public Staff save(Staff staff);
     public Staff update(Staff staff);
     public int delete(int id);

@@ -1,6 +1,7 @@
 package controller;
 
 import entity.SalesInvoiceDetail;
+import helper.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.SalesInvoiceDetailService;
@@ -14,8 +15,8 @@ public class SalesInvoiceDetailController {
     private SalesInvoiceDetailService salesInvoiceDetailService;
 
     @RequestMapping(path = "sales_invoice_details/all", method = RequestMethod.GET)
-    public List<SalesInvoiceDetail> getAllSalesInvoiceDetails(){
-        return salesInvoiceDetailService.findAll();
+    public PaginatedList<SalesInvoiceDetail> getAllSalesInvoiceDetails(@RequestParam int pageIndex, @RequestParam int pageSize){
+        return salesInvoiceDetailService.findAll(pageIndex, pageSize);
     }
 
     @RequestMapping(path = "sales_invoice_details/{id}", method = RequestMethod.GET)

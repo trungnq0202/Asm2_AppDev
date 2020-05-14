@@ -1,6 +1,8 @@
 package service.implementation;
 
 import entity.DeliveryNoteDetail;
+import entity.Order;
+import helper.pagination.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +20,17 @@ public class DeliveryNoteDetailServiceImpl implements DeliveryNoteDetailService 
     private SessionFactory sessionFactory;
 
     @Override
-    public List<DeliveryNoteDetail> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("FROM DeliveryNoteDetail").list();
-    }
+    public PaginatedList<DeliveryNoteDetail> findAll(int pageIndex, int pageSize) {
+        PaginatedList<DeliveryNoteDetail> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM DeliveryNoteDetail");
 
-    @Override
-    public List<DeliveryNoteDetail> findAllByDeliveryNoteId(int deliveryNoteId) {
-        return sessionFactory.getCurrentSession().createQuery("from DeliveryNoteDetail where deliverynote_id=:id")
-                .setInteger("id", deliveryNoteId).list();
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from DeliveryNoteDetail").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+
+        return paginatedList;
     }
 
     @Override

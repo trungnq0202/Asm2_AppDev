@@ -2,6 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "delivery_note")
@@ -13,19 +14,28 @@ public class DeliveryNote {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-//    @Transient
-//    List<DeliveryNoteDetail>
+    @OneToMany(mappedBy = "deliveryNote", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<DeliveryNoteDetail> deliveryNoteDetails;
 
     public DeliveryNote() {
     }
 
-    public DeliveryNote(int id, Date date) {
+    public DeliveryNote(int id, Date date, List<DeliveryNoteDetail> deliveryNoteDetails) {
         this.id = id;
         this.date = date;
+        this.deliveryNoteDetails = deliveryNoteDetails;
     }
 
     public int getId() {
         return id;
+    }
+
+    public List<DeliveryNoteDetail> getDeliveryNoteDetails() {
+        return deliveryNoteDetails;
+    }
+
+    public void setDeliveryNoteDetails(List<DeliveryNoteDetail> deliveryNoteDetails) {
+        this.deliveryNoteDetails = deliveryNoteDetails;
     }
 
     public void setId(int id) {

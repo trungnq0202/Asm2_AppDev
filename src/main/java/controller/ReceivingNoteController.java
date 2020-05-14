@@ -1,10 +1,13 @@
 package controller;
 
 import entity.ReceivingNote;
+import helper.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import service.ReceivingNoteService;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -15,8 +18,14 @@ public class ReceivingNoteController {
     private ReceivingNoteService receivingNoteService;
 
     @RequestMapping(path = "receiving_notes/all", method = RequestMethod.GET)
-    public List<ReceivingNote> getAllReceivingNotes(){
-        return receivingNoteService.findAll();
+    public PaginatedList<ReceivingNote> getAllReceivingNotes(@RequestParam int pageIndex, @RequestParam int pageSize){
+        return receivingNoteService.findAll(pageIndex, pageSize);
+    }
+
+    @RequestMapping(path = "receiving_notes/by_date", method = RequestMethod.GET)
+    public PaginatedList<ReceivingNote> getAllReceivingNotesByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date
+            , @RequestParam int pageIndex, @RequestParam int pageSize){
+        return receivingNoteService.findByDate(date, pageIndex, pageSize);
     }
 
     @RequestMapping(path = "receiving_notes/{id}", method = RequestMethod.GET)

@@ -1,5 +1,7 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class DeliveryNoteDetail {
     private int id;
 
     @ManyToOne
+    @JsonIgnore
     private DeliveryNote deliveryNote;
 
     @ManyToOne

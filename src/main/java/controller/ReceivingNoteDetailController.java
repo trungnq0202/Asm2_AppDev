@@ -1,6 +1,7 @@
 package controller;
 
 import entity.ReceivingNoteDetail;
+import helper.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.ReceivingNoteDetailService;
@@ -15,8 +16,8 @@ public class ReceivingNoteDetailController {
     private ReceivingNoteDetailService receivingNoteDetailService;
 
     @RequestMapping(path = "receiving_note_details/all", method = RequestMethod.GET)
-    public List<ReceivingNoteDetail> getAllReceivingNoteDetails(){
-        return receivingNoteDetailService.findAll();
+    public PaginatedList<ReceivingNoteDetail> getAllReceivingNoteDetails(@RequestParam int pageIndex, @RequestParam int pageSize){
+        return receivingNoteDetailService.findAll(pageIndex, pageSize);
     }
 
     @RequestMapping(path = "receiving_note_details/{id}", method = RequestMethod.GET)

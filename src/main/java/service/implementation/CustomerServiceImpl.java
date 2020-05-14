@@ -2,6 +2,7 @@ package service.implementation;
 
 import entity.Customer;
 import entity.Staff;
+import helper.pagination.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,17 @@ public class CustomerServiceImpl implements CustomerService {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Customer> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Customer").list();
+    public PaginatedList<Customer> findAll(int pageIndex, int pageSize) {
+        PaginatedList<Customer> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM Customer");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Customer").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+
+        return paginatedList;
     }
 
     @Override
@@ -31,10 +41,48 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> findByName(String name) {
+    public PaginatedList<Customer> findByName(String name, int pageIndex, int pageSize) {
+        PaginatedList<Customer> paginatedList = new PaginatedList<>();
         Query query = sessionFactory.getCurrentSession().createQuery("from Customer where name like :name");
         query.setString("name", "%"+name+"%");
-        return query.list();
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Customer where name like :name")
+                .setString("name", "%"+name+"%").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
+    }
+
+    @Override
+    public PaginatedList<Customer> findByPhone(String name, int pageIndex, int pageSize) {
+        PaginatedList<Customer> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("from Customer where phone like :phone");
+        query.setString("phone", "%"+name+"%");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Customer where phone like :phone")
+                .setString("phone", "%"+name+"%").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
+    }
+
+    @Override
+    public PaginatedList<Customer> findByAddress(String name, int pageIndex, int pageSize) {
+        PaginatedList<Customer> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("from Customer where address like :address");
+        query.setString("address", "%"+name+"%");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Customer where address like :address")
+                .setString("address", "%"+name+"%").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
     }
 
     @Override

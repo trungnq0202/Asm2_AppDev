@@ -1,12 +1,11 @@
 package service.implementation;
 
 import entity.Staff;
+import helper.pagination.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 import service.StaffService;
 
@@ -20,8 +19,17 @@ public class StaffServiceImpl implements StaffService {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Staff> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("FROM Staff").list();
+    public PaginatedList<Staff> findAll(int pageIndex, int pageSize) {
+        PaginatedList<Staff> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM Staff");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Staff").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+
+        return paginatedList;
     }
 
     @Override
@@ -31,11 +39,51 @@ public class StaffServiceImpl implements StaffService {
         return (Staff)query.uniqueResult();
     }
 
-    public List<Staff> findByName(String name){
+    @Override
+    public PaginatedList<Staff> findByName(String name, int pageIndex, int pageSize){
+        PaginatedList<Staff> paginatedList = new PaginatedList<>();
         Query query = sessionFactory.getCurrentSession().createQuery("from Staff where name like :name");
         query.setString("name", "%"+name+"%");
-        return query.list();
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Staff where name like :name")
+                .setString("name", "%"+name+"%").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
     }
+
+    @Override
+    public PaginatedList<Staff> findByAddress(String address, int pageIndex, int pageSize) {
+        PaginatedList<Staff> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("from Staff where address like :address");
+        query.setString("address", "%"+address+"%");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Staff where address like :address")
+                .setString("address", "%"+address+"%").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
+    }
+
+    @Override
+    public PaginatedList<Staff> findByPhone(String phone, int pageIndex, int pageSize) {
+        PaginatedList<Staff> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("from Staff where phone like :phone");
+        query.setString("phone", "%"+phone+"%");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Staff where phone like :phone")
+                .setString("phone", "%"+phone+"%").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
+    }
+
 
     @Override
     public Staff save(Staff staff) {

@@ -1,6 +1,7 @@
 package controller;
 
 import entity.Provider;
+import helper.pagination.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.ProviderService;
@@ -15,8 +16,8 @@ public class ProviderController {
     private ProviderService providerService;
 
     @RequestMapping(path = "providers/all", method = RequestMethod.GET)
-    public List<Provider> getAllProviders(){
-        return providerService.findAll();
+    public PaginatedList<Provider> getAllProviders(@RequestParam int pageIndex, @RequestParam int pageSize){
+        return providerService.findAll(pageIndex, pageSize);
     }
 
     @RequestMapping(path = "providers/{id}", method = RequestMethod.GET)
@@ -24,9 +25,19 @@ public class ProviderController {
         return providerService.findById(id);
     }
 
-    @RequestMapping(path = "providers", method = RequestMethod.GET)
-    public List<Provider> getProvidersByName(@RequestParam String name){
-        return providerService.findByName(name);
+    @RequestMapping(path = "providers/by_name", method = RequestMethod.GET)
+    public PaginatedList<Provider> getProvidersByName(@RequestParam String name, @RequestParam int pageIndex, @RequestParam int pageSize){
+        return providerService.findByName(name, pageIndex, pageSize);
+    }
+
+    @RequestMapping(path = "providers/by_phone", method = RequestMethod.GET)
+    public PaginatedList<Provider> getProvidersByPhone(@RequestParam String phone, @RequestParam int pageIndex, @RequestParam int pageSize){
+        return providerService.findByPhone(phone, pageIndex, pageSize);
+    }
+
+    @RequestMapping(path = "providers/by_address", method = RequestMethod.GET)
+    public PaginatedList<Provider> getProvidersByAddress(@RequestParam String address, @RequestParam int pageIndex, @RequestParam int pageSize){
+        return providerService.findByAddress(address, pageIndex, pageSize);
     }
 
     @RequestMapping(path = "providers", method = RequestMethod.POST)

@@ -1,6 +1,8 @@
 package service.implementation;
 
 import entity.Product;
+import entity.Staff;
+import helper.pagination.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,17 @@ public class ProductServiceImpl implements ProductService {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Product> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("FROM Product").list();
+    public PaginatedList<Product> findAll(int pageIndex, int pageSize) {
+        PaginatedList<Product> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM Product");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Product").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+
+        return paginatedList;
     }
 
     @Override
@@ -29,10 +40,33 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findByName(String name) {
+    public PaginatedList<Product> findByName(String name, int pageIndex, int pageSize) {
+        PaginatedList<Product> paginatedList = new PaginatedList<>();
         Query query = sessionFactory.getCurrentSession().createQuery("from Product where name like :name");
         query.setString("name", "%"+name+"%");
-        return query.list();
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Product where name like :name")
+                .setString("name", "%"+name+"%").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
+    }
+
+    @Override
+    public PaginatedList<Product> findByBrand(String brand, int pageIndex, int pageSize) {
+        PaginatedList<Product> paginatedList = new PaginatedList<>();
+        Query query = sessionFactory.getCurrentSession().createQuery("from Product where brand like :brand");
+        query.setString("brand", "%"+brand+"%");
+
+        int totalRow = Integer.parseInt(sessionFactory.getCurrentSession().createQuery("select count(*) from Product where brand like :brand")
+                .setString("brand", "%"+brand+"%").uniqueResult().toString());
+        paginatedList.create(totalRow, pageIndex, pageSize);
+        query.setFirstResult(paginatedList.getOffset());
+        query.setMaxResults(pageSize);
+        paginatedList.setItems(query.list());
+        return paginatedList;
     }
 
     @Override
