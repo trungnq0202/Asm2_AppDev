@@ -103,4 +103,5 @@ public class StaffServiceImpl implements StaffService {
         sessionFactory.getCurrentSession().delete(staff);
         return id;
     }
+
 }

@@ -27,10 +27,10 @@ public class OrderController {
         return orderService.findByDate(date, pageIndex, pageSize);
     }
 
-    @RequestMapping(path = "orders/{id}", method = RequestMethod.GET)
-    public Order getOrderById(@PathVariable int id){
-        return orderService.findById(id);
-    }
+//    @RequestMapping(path = "orders/{id}", method = RequestMethod.GET)
+//    public Order getOrderById(@PathVariable int id){
+//        return orderService.findById(id);
+//    }
 
     @RequestMapping(path = "orders", method = RequestMethod.POST)
     public Order addOrder(@RequestBody Order order){

@@ -20,10 +20,10 @@ public class CustomerController {
         return customerService.findAll(pageIndex, pageSize);
     }
 
-    @RequestMapping(path = "customers/{id}", method = RequestMethod.GET)
-    public Customer getCustomerById(@PathVariable int id){
-        return customerService.findById(id);
-    }
+//    @RequestMapping(path = "customers/{id}", method = RequestMethod.GET)
+//    public Customer getCustomerById(@PathVariable int id){
+//        return customerService.findById(id);
+//    }
 
     @RequestMapping(path = "customers/by_name", method = RequestMethod.GET)
     public PaginatedList<Customer> getCustomersByName(@RequestParam String name, @RequestParam int pageIndex, @RequestParam int pageSize){

@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.CategoryService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(path = "/")
 public class CategoryController {
@@ -22,12 +20,12 @@ public class CategoryController {
         return categoryService.findAll(pageIndex, pageSize);
     }
 
-    @RequestMapping(path = "categories/{id}", method = RequestMethod.GET)
-    public Category getCategoryById(@PathVariable int id){
-        return categoryService.findById(id);
-    }
+//    @RequestMapping(path = "categories/{id}", method = RequestMethod.GET)
+//    public Category getCategoryById(@PathVariable int id){
+//        return categoryService.findById(id);
+//    }
 
-    @RequestMapping(path = "categories", method = RequestMethod.GET)
+    @RequestMapping(path = "categories/by_name", method = RequestMethod.GET)
     public PaginatedList<Category> getCategoriesByName(@RequestParam String name
         , @RequestParam int pageIndex, @RequestParam int pageSize){
         return categoryService.findByName(name, pageIndex, pageSize);

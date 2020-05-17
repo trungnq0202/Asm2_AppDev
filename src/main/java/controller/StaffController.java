@@ -13,17 +13,19 @@ public class StaffController {
     @Autowired
     private StaffService staffService;
 
+    //Get paginated list of all Staffs
     @RequestMapping(path = "staffs/all", method = RequestMethod.GET)
     public PaginatedList<Staff> getAllStaffs(
             @RequestParam int pageIndex, @RequestParam int pageSize
     ){
+        System.out.println(staffService);
         return staffService.findAll(pageIndex, pageSize);
     }
 
-    @RequestMapping(path = "staffs/{id}", method = RequestMethod.GET)
-    public Staff getStaffById(@PathVariable int id){
-        return staffService.findById(id);
-    }
+//    @RequestMapping(path = "staffs/{id}", method = RequestMethod.GET)
+//    public Staff getStaffById(@PathVariable int id){
+//        return staffService.findById(id);
+//    }
 
     @RequestMapping(path = "staffs/by_name", method = RequestMethod.GET)
     public PaginatedList<Staff> getStaffByName(@RequestParam String name,

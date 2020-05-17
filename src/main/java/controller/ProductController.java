@@ -20,10 +20,10 @@ public class ProductController {
         return productService.findAll(pageIndex, pageSize);
     }
 
-    @RequestMapping(path = "products/{id}", method = RequestMethod.GET)
-    public Product getProductById(@PathVariable int id){
-        return productService.findById(id);
-    }
+//    @RequestMapping(path = "products/{id}", method = RequestMethod.GET)
+//    public Product getProductById(@PathVariable int id){
+//        return productService.findById(id);
+//    }
 
     @RequestMapping(path = "products/by_name", method = RequestMethod.GET)
     public PaginatedList<Product> getProductByName(@RequestParam String name, @RequestParam int pageIndex, @RequestParam int pageSize){

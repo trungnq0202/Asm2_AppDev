@@ -20,10 +20,10 @@ public class ProviderController {
         return providerService.findAll(pageIndex, pageSize);
     }
 
-    @RequestMapping(path = "providers/{id}", method = RequestMethod.GET)
-    public Provider getProviderById(@PathVariable int id){
-        return providerService.findById(id);
-    }
+//    @RequestMapping(path = "providers/{id}", method = RequestMethod.GET)
+//    public Provider getProviderById(@PathVariable int id){
+//        return providerService.findById(id);
+//    }
 
     @RequestMapping(path = "providers/by_name", method = RequestMethod.GET)
     public PaginatedList<Provider> getProvidersByName(@RequestParam String name, @RequestParam int pageIndex, @RequestParam int pageSize){
