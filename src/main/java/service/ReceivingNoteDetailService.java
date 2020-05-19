@@ -1,9 +1,7 @@
 package service;
 
-import entity.ReceivingNoteDetail;
-import helper.pagination.PaginatedList;
-
-import java.util.List;
+import model.ReceivingNoteDetail;
+import model.PaginatedList;
 
 public interface ReceivingNoteDetailService {
     public PaginatedList<ReceivingNoteDetail> findAll(int pageIndex, int pageSize);

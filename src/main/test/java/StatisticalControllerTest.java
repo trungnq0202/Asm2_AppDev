@@ -1,13 +1,11 @@
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import entity.DeliveryNote;
-import entity.ReceivingNote;
-import entity.SalesInvoice;
+import model.DeliveryNote;
+import model.ReceivingNote;
+import model.SalesInvoice;
 import helper.*;
-import helper.model.InventoryNote;
-import helper.model.InventoryNoteDetail;
-import helper.pagination.PaginatedList;
+import model.InventoryNote;
+import model.PaginatedList;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
@@ -16,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class AdditionalControllerTest {
+public class StatisticalControllerTest {
     private int staffId;
     private int providerId;
     private int customerId;

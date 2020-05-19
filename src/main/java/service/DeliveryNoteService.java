@@ -1,8 +1,8 @@
 package service;
 
 
-import entity.DeliveryNote;
-import helper.pagination.PaginatedList;
+import model.DeliveryNote;
+import model.PaginatedList;
 
 import java.util.Date;
 

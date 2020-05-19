@@ -1,4 +1,4 @@
-package helper.model;
+package model;
 
 public class InventoryNoteDetail {
     private String productName;

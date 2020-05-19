@@ -1,15 +1,15 @@
 package service.implementation;
 
-import entity.*;
-import helper.model.InventoryNote;
-import helper.model.InventoryNoteDetail;
-import helper.pagination.PaginatedList;
+import model.*;
+import model.InventoryNote;
+import model.InventoryNoteDetail;
+import model.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import service.AdditionalService;
+import service.StatisticalService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Transactional
 @Service
-public class AdditionalServiceImpl implements AdditionalService {
+public class StatisticalServiceImpl implements StatisticalService {
 
     @Autowired
     private SessionFactory sessionFactory;

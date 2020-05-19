@@ -1,9 +1,8 @@
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import entity.DeliveryNoteDetail;
-import entity.ReceivingNoteDetail;
+import model.DeliveryNoteDetail;
 import helper.*;
-import helper.pagination.PaginatedList;
+import model.PaginatedList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;

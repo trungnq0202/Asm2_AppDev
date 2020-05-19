@@ -1,15 +1,15 @@
 package service;
 
-import entity.DeliveryNote;
-import entity.ReceivingNote;
-import entity.SalesInvoice;
-import helper.model.InventoryNote;
-import helper.pagination.PaginatedList;
+import model.DeliveryNote;
+import model.ReceivingNote;
+import model.SalesInvoice;
+import model.InventoryNote;
+import model.PaginatedList;
 
 import java.util.Date;
 import java.util.List;
 
-public interface AdditionalService {
+public interface StatisticalService {
     public PaginatedList<ReceivingNote> findReceivingNotesByTimePeriod(Date startDate, Date endDate, int pageIndex, int pageSize);
     public PaginatedList<DeliveryNote> findDeliveryNotesByTimePeriod(Date startDate, Date endDate, int pageIndex, int pageSize);
     public PaginatedList<SalesInvoice> findInvoicesByTimePeriod(Date startDate, Date endDate, int pageIndex, int pageSize);

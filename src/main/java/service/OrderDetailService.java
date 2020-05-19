@@ -1,10 +1,8 @@
 package service;
 
 
-import entity.OrderDetail;
-import helper.pagination.PaginatedList;
-
-import java.util.List;
+import model.OrderDetail;
+import model.PaginatedList;
 
 public interface OrderDetailService {
     public PaginatedList<OrderDetail> findAll(int pageIndex, int pageSize);

@@ -1,7 +1,7 @@
 package controller;
 
-import entity.Order;
-import helper.pagination.PaginatedList;
+import model.Order;
+import model.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +26,6 @@ public class OrderController {
             , @RequestParam int pageIndex, @RequestParam int pageSize){
         return orderService.findByDate(date, pageIndex, pageSize);
     }
-
-//    @RequestMapping(path = "orders/{id}", method = RequestMethod.GET)
-//    public Order getOrderById(@PathVariable int id){
-//        return orderService.findById(id);
-//    }
 
     @RequestMapping(path = "orders", method = RequestMethod.POST)
     public Order addOrder(@RequestBody Order order){

@@ -2,8 +2,8 @@ package helper;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import entity.*;
-import helper.pagination.PaginatedList;
+import model.*;
+import model.PaginatedList;
 
 import java.io.IOException;
 

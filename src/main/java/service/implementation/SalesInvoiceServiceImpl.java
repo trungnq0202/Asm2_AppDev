@@ -1,10 +1,9 @@
 package service.implementation;
 
-import entity.DeliveryNoteDetail;
-import entity.Order;
-import entity.SalesInvoice;
-import entity.SalesInvoiceDetail;
-import helper.pagination.PaginatedList;
+import model.DeliveryNoteDetail;
+import model.SalesInvoice;
+import model.SalesInvoiceDetail;
+import model.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import service.SalesInvoiceService;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Transactional
 @Service

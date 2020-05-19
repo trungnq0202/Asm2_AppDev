@@ -1,12 +1,10 @@
 package controller;
 
-import entity.Customer;
-import helper.pagination.PaginatedList;
+import model.Customer;
+import model.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.CustomerService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/")
@@ -19,11 +17,6 @@ public class CustomerController {
     public PaginatedList<Customer> getAllCustomers(@RequestParam int pageIndex, @RequestParam int pageSize){
         return customerService.findAll(pageIndex, pageSize);
     }
-
-//    @RequestMapping(path = "customers/{id}", method = RequestMethod.GET)
-//    public Customer getCustomerById(@PathVariable int id){
-//        return customerService.findById(id);
-//    }
 
     @RequestMapping(path = "customers/by_name", method = RequestMethod.GET)
     public PaginatedList<Customer> getCustomersByName(@RequestParam String name, @RequestParam int pageIndex, @RequestParam int pageSize){

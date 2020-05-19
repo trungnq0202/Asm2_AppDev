@@ -11,6 +11,6 @@ import java.util.Map;
 
 public class TestConfig {
 
-    public static final String baseURL = "http://localhost:6969/";
+    public static final String baseURL = "http://localhost:8080/";
 
 }

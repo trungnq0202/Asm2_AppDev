@@ -1,11 +1,8 @@
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import entity.Order;
-import entity.OrderDetail;
-import entity.Staff;
+import model.OrderDetail;
 import helper.*;
-import helper.pagination.PaginatedList;
+import model.PaginatedList;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 

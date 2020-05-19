@@ -1,10 +1,7 @@
 package service;
 
-import entity.Provider;
-import entity.Staff;
-import helper.pagination.PaginatedList;
-
-import java.util.List;
+import model.Provider;
+import model.PaginatedList;
 
 public interface ProviderService {
     public PaginatedList<Provider> findAll(int pageIndex, int pageSize);

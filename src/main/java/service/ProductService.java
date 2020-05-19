@@ -1,11 +1,7 @@
 package service;
 
-import entity.Product;
-import entity.Staff;
-import helper.pagination.PaginatedList;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import model.Product;
+import model.PaginatedList;
 
 public interface ProductService {
     public PaginatedList<Product> findAll(int pageIndex, int pageSize);

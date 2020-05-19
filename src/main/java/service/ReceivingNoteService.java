@@ -1,12 +1,10 @@
 package service;
 
 
-import entity.Order;
-import entity.ReceivingNote;
-import helper.pagination.PaginatedList;
+import model.ReceivingNote;
+import model.PaginatedList;
 
 import java.util.Date;
-import java.util.List;
 
 public interface ReceivingNoteService {
     public PaginatedList<ReceivingNote> findAll(int pageIndex, int pageSize);

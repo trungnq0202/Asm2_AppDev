@@ -1,9 +1,8 @@
 package service.implementation;
 
-import entity.DeliveryNote;
-import entity.DeliveryNoteDetail;
-import entity.Order;
-import helper.pagination.PaginatedList;
+import model.DeliveryNote;
+import model.DeliveryNoteDetail;
+import model.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import service.DeliveryNoteDetailService;
 import service.DeliveryNoteService;
 
 import java.util.Date;
-import java.util.List;
 
 @Transactional
 @Service

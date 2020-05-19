@@ -1,7 +1,7 @@
 package controller;
 
-import entity.Category;
-import helper.pagination.PaginatedList;
+import model.Category;
+import model.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.CategoryService;
@@ -19,11 +19,6 @@ public class CategoryController {
     ){
         return categoryService.findAll(pageIndex, pageSize);
     }
-
-//    @RequestMapping(path = "categories/{id}", method = RequestMethod.GET)
-//    public Category getCategoryById(@PathVariable int id){
-//        return categoryService.findById(id);
-//    }
 
     @RequestMapping(path = "categories/by_name", method = RequestMethod.GET)
     public PaginatedList<Category> getCategoriesByName(@RequestParam String name

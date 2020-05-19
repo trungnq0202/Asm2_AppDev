@@ -1,8 +1,6 @@
 package service;
-import entity.Category;
-import helper.pagination.PaginatedList;
-
-import java.util.List;
+import model.Category;
+import model.PaginatedList;
 
 public interface CategoryService {
     public PaginatedList<Category> findAll(int pageIndex, int pageSize);

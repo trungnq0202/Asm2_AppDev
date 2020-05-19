@@ -1,6 +1,4 @@
-package entity;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package model;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -1,7 +1,6 @@
-package entity;
+package model;
 
 import javax.persistence.*;
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 

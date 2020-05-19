@@ -1,7 +1,7 @@
 package service.implementation;
 
-import entity.OrderDetail;
-import helper.pagination.PaginatedList;
+import model.OrderDetail;
+import model.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

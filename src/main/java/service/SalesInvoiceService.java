@@ -1,12 +1,10 @@
 package service;
 
 
-import entity.SalesInvoice;
-import helper.pagination.PaginatedList;
-import org.springframework.web.bind.annotation.RequestParam;
+import model.SalesInvoice;
+import model.PaginatedList;
 
 import java.util.Date;
-import java.util.List;
 
 public interface SalesInvoiceService {
     public PaginatedList<SalesInvoice> findAll(int pageIndex, int pageSize);

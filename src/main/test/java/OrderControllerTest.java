@@ -2,16 +2,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import entity.Order;
+import model.Order;
 import helper.*;
-import helper.pagination.PaginatedList;
+import model.PaginatedList;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class OrderControllerTest {

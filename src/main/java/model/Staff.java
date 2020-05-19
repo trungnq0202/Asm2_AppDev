@@ -1,33 +1,35 @@
-package entity;
+package model;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "customer")
-public class Customer {
+@Table(name = "staff")
+public class Staff {
+
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column
     private String name;
-    private String address;
-    private String email;
-    private String phone;
-    private String fax;
-    private String contact_person;
 
-    public Customer() {
+    private String address;
+
+    private String email;
+
+    private String phone;
+
+    public Staff() {
     }
 
-    public Customer(int id, String name, String address, String email,String phone, String fax, String contactPerson) {
+    public Staff(int id, String name, String address, String email, String phone) {
         super();
         this.id = id;
         this.name = name;
         this.address = address;
         this.email = email;
         this.phone = phone;
-        this.fax = fax;
-        this.contact_person = contactPerson;
     }
 
     public int getId() {
@@ -68,21 +70,5 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
-
-    public String getContact_person() {
-        return contact_person;
-    }
-
-    public void setContact_person(String contact_person) {
-        this.contact_person = contact_person;
     }
 }

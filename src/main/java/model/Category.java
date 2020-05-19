@@ -1,9 +1,6 @@
-package entity;
-
-import org.hibernate.annotations.Cascade;
+package model;
 
 import javax.persistence.*;
-import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "category", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))

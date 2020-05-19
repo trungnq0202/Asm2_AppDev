@@ -2,10 +2,8 @@ package service;
 
 
 
-import entity.DeliveryNoteDetail;
-import helper.pagination.PaginatedList;
-
-import java.util.List;
+import model.DeliveryNoteDetail;
+import model.PaginatedList;
 
 public interface DeliveryNoteDetailService {
     public PaginatedList<DeliveryNoteDetail> findAll(int pageIndex, int pageSize);

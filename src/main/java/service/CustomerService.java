@@ -1,9 +1,7 @@
 package service;
 
-import entity.Customer;
-import helper.pagination.PaginatedList;
-
-import java.util.List;
+import model.Customer;
+import model.PaginatedList;
 
 public interface CustomerService {
     public PaginatedList<Customer> findAll(int pageIndex, int pageSize);

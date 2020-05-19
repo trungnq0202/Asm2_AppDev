@@ -1,4 +1,4 @@
-package helper.model;
+package model;
 
 public class InventoryNote {
     private int productId;

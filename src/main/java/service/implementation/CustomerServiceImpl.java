@@ -1,16 +1,13 @@
 package service.implementation;
 
-import entity.Customer;
-import entity.Staff;
-import helper.pagination.PaginatedList;
+import model.Customer;
+import model.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import service.CustomerService;
-
-import java.util.List;
 
 @Transactional
 @Service

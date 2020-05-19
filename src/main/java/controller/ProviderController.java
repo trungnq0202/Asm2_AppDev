@@ -1,12 +1,10 @@
 package controller;
 
-import entity.Provider;
-import helper.pagination.PaginatedList;
+import model.Provider;
+import model.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.ProviderService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/")
@@ -19,11 +17,6 @@ public class ProviderController {
     public PaginatedList<Provider> getAllProviders(@RequestParam int pageIndex, @RequestParam int pageSize){
         return providerService.findAll(pageIndex, pageSize);
     }
-
-//    @RequestMapping(path = "providers/{id}", method = RequestMethod.GET)
-//    public Provider getProviderById(@PathVariable int id){
-//        return providerService.findById(id);
-//    }
 
     @RequestMapping(path = "providers/by_name", method = RequestMethod.GET)
     public PaginatedList<Provider> getProvidersByName(@RequestParam String name, @RequestParam int pageIndex, @RequestParam int pageSize){

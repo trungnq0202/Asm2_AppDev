@@ -1,7 +1,7 @@
 package controller;
 
-import entity.Staff;
-import helper.pagination.PaginatedList;
+import model.Staff;
+import model.PaginatedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.StaffService;
@@ -21,11 +21,6 @@ public class StaffController {
         System.out.println(staffService);
         return staffService.findAll(pageIndex, pageSize);
     }
-
-//    @RequestMapping(path = "staffs/{id}", method = RequestMethod.GET)
-//    public Staff getStaffById(@PathVariable int id){
-//        return staffService.findById(id);
-//    }
 
     @RequestMapping(path = "staffs/by_name", method = RequestMethod.GET)
     public PaginatedList<Staff> getStaffByName(@RequestParam String name,

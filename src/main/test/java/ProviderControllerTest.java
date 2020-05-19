@@ -2,20 +2,17 @@
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import entity.Provider;
-import helper.HTTPRequestMaker;
+import model.Provider;
 import helper.HTTPRequestMaker;
 import helper.TestDataHelper;
 import helper.TestDataIdGetter;
-import helper.pagination.PaginatedList;
+import model.PaginatedList;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

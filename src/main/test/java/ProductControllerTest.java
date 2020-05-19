@@ -2,16 +2,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import entity.Product;
-import entity.Staff;
+import model.Product;
 import helper.*;
-import helper.pagination.PaginatedList;
+import model.PaginatedList;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -139,8 +136,10 @@ public class ProductControllerTest {
                 new TypeToken<Integer>(){}.getType());
 
         Assert.assertEquals(this.productId, id);
+
         TestDataDeleter.deleteCategoryTestData(this.categoryId);
     }
+
 
     private int getIndexOfTestDataInReturnList(PaginatedList<Product> productList, int idOfTestData){
         for (int i = 0; i < productList.getItems().size(); i++){

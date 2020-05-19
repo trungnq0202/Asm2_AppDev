@@ -1,10 +1,9 @@
 package service.implementation;
 
-import entity.Order;
-import entity.OrderDetail;
-import entity.ReceivingNote;
-import entity.ReceivingNoteDetail;
-import helper.pagination.PaginatedList;
+import model.OrderDetail;
+import model.ReceivingNote;
+import model.ReceivingNoteDetail;
+import model.PaginatedList;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import service.ReceivingNoteService;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Transactional
 @Service

@@ -1,9 +1,8 @@
-package entity;
+package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "order_detail")

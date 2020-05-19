@@ -1,10 +1,7 @@
 package service;
 
-import entity.SalesInvoice;
-import entity.SalesInvoiceDetail;
-import helper.pagination.PaginatedList;
-
-import java.util.List;
+import model.SalesInvoiceDetail;
+import model.PaginatedList;
 
 public interface SalesInvoiceDetailService {
     public PaginatedList<SalesInvoiceDetail> findAll(int pageIndex, int pageSize);

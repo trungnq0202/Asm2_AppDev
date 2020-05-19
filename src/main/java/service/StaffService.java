@@ -1,9 +1,7 @@
 package service;
 
-import entity.Staff;
-import helper.pagination.PaginatedList;
-
-import java.util.List;
+import model.Staff;
+import model.PaginatedList;
 
 public interface StaffService {
     public PaginatedList<Staff> findAll(int pageIndex, int pageSize);
