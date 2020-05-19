@@ -86,7 +86,7 @@ public class ReceivingNoteServiceImpl implements ReceivingNoteService {
         int newOrderId = receivingNote.getOrder().getId();
 
         //If new Order Id is updated
-        if (oldOrderId != newOrderId){
+//        if (oldOrderId != newOrderId){
             //Delete old Receiving Note Details
             for (ReceivingNoteDetail receivingNoteDetail:savedReceivingNote.getReceivingNoteDetails()){
                 receivingNoteDetailService.delete(receivingNoteDetail.getId());
@@ -99,7 +99,7 @@ public class ReceivingNoteServiceImpl implements ReceivingNoteService {
                 savedReceivingNote.getReceivingNoteDetails().add(receivingNoteDetail);
                 receivingNoteDetailService.save(receivingNoteDetail);
             }
-        }
+//        }
 
         //Update others
         savedReceivingNote.setDate(receivingNote.getDate());

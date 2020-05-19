@@ -32,12 +32,12 @@ public class CustomerController {
 
     @RequestMapping(path = "customers/by_phone", method = RequestMethod.GET)
     public PaginatedList<Customer> getCustomersByPhone(@RequestParam String phone, @RequestParam int pageIndex, @RequestParam int pageSize){
-        return customerService.findByName(phone, pageIndex, pageSize);
+        return customerService.findByPhone(phone, pageIndex, pageSize);
     }
 
     @RequestMapping(path = "customers/by_address", method = RequestMethod.GET)
     public PaginatedList<Customer> getCustomersByAddress(@RequestParam String address, @RequestParam int pageIndex, @RequestParam int pageSize){
-        return customerService.findByName(address, pageIndex, pageSize);
+        return customerService.findByAddress(address, pageIndex, pageSize);
     }
 
     @RequestMapping(path = "customers", method = RequestMethod.POST)

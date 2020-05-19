@@ -14,9 +14,7 @@ public class Customer {
     private String email;
     private String phone;
     private String fax;
-
-    @Column(name = "contact_person")
-    private String contactPerson;
+    private String contact_person;
 
     public Customer() {
     }
@@ -29,7 +27,7 @@ public class Customer {
         this.email = email;
         this.phone = phone;
         this.fax = fax;
-        this.contactPerson = contactPerson;
+        this.contact_person = contactPerson;
     }
 
     public int getId() {
@@ -81,10 +79,10 @@ public class Customer {
     }
 
     public String getContact_person() {
-        return contactPerson;
+        return contact_person;
     }
 
-    public void setContact_person(String contactPerson) {
-        this.contactPerson = contactPerson;
+    public void setContact_person(String contact_person) {
+        this.contact_person = contact_person;
     }
 }

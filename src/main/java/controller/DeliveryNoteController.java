@@ -28,10 +28,10 @@ public class DeliveryNoteController {
         return deliveryNoteService.findByDate(date, pageIndex, pageSize);
     }
 
-    @RequestMapping(path = "delivery_notes/{id}", method = RequestMethod.GET)
-    public DeliveryNote getDeliveryNoteById(@PathVariable int id){
-        return deliveryNoteService.findById(id);
-    }
+//    @RequestMapping(path = "delivery_notes/{id}", method = RequestMethod.GET)
+//    public DeliveryNote getDeliveryNoteById(@PathVariable int id){
+//        return deliveryNoteService.findById(id);
+//    }
 
     @RequestMapping(path = "delivery_notes", method = RequestMethod.POST)
     public DeliveryNote addDeliveryNote(@RequestBody DeliveryNote deliveryNote){

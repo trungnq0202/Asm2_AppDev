@@ -27,10 +27,10 @@ public class SalesInvoiceController {
         return salesInvoiceService.findByDate(date, pageIndex, pageSize);
     }
 
-    @RequestMapping(path = "sales_invoices/{id}", method = RequestMethod.GET)
-    public SalesInvoice getSalesInvoiceById(@PathVariable int id){
-        return salesInvoiceService.findById(id);
-    }
+//    @RequestMapping(path = "sales_invoices/{id}", method = RequestMethod.GET)
+//    public SalesInvoice getSalesInvoiceById(@PathVariable int id){
+//        return salesInvoiceService.findById(id);
+//    }
 
     @RequestMapping(path = "sales_invoices", method = RequestMethod.POST)
     public SalesInvoice addSalesInvoice(@RequestBody SalesInvoice salesInvoice){

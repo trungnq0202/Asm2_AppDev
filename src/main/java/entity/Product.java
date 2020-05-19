@@ -20,8 +20,7 @@ public class Product {
 
     private String description;
 
-    @Column(name = "selling_price")
-    private float sellingPrice;
+    private float selling_price;
 
     @ManyToOne
     private Category category;
@@ -36,7 +35,7 @@ public class Product {
         this.brand = brand;
         this.company = company;
         this.description = description;
-        this.sellingPrice = sellingPrice;
+        this.selling_price = sellingPrice;
         this.category = category;
     }
 
@@ -89,11 +88,11 @@ public class Product {
     }
 
     public float getSelling_price() {
-        return sellingPrice;
+        return selling_price;
     }
 
     public void setSelling_price(float sellingPrice) {
-        this.sellingPrice = sellingPrice;
+        this.selling_price = sellingPrice;
     }
 
     public Category getCategory() {

@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 
@@ -37,8 +38,9 @@ public class SalesInvoice {
         this.salesInvoiceDetails = salesInvoiceDetails;
     }
 
-    public SalesInvoice(int id, Staff staff, Customer customer, DeliveryNote deliveryNote, List<SalesInvoiceDetail> salesInvoiceDetails) {
+    public SalesInvoice(int id, Date date, Staff staff, Customer customer, DeliveryNote deliveryNote, List<SalesInvoiceDetail> salesInvoiceDetails) {
         this.id = id;
+        this.date = date;
         this.staff = staff;
         this.customer = customer;
         this.deliveryNote = deliveryNote;

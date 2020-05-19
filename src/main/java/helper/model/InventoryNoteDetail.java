@@ -38,6 +38,9 @@ public class InventoryNoteDetail {
         Balance = balance;
     }
 
+    public InventoryNoteDetail() {
+    }
+
     public InventoryNoteDetail(String productName, int received, int delivered, int balance) {
         this.productName = productName;
         Received = received;

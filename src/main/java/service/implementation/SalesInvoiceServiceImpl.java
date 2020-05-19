@@ -70,7 +70,7 @@ public class SalesInvoiceServiceImpl  implements SalesInvoiceService {
     @Override
     public SalesInvoice save(SalesInvoice salesInvoice) {
         //Copy Date from Delivery Note to Sales Invoice
-        salesInvoice.setDate(deliveryNoteService.findById(salesInvoice.getDeliveryNote().getId()).getDate());
+//        salesInvoice.setDate(deliveryNoteService.findById(salesInvoice.getDeliveryNote().getId()).getDate());
         salesInvoice.setSalesInvoiceDetails(new ArrayList<>());
 
         for (DeliveryNoteDetail deliveryNoteDetail: deliveryNoteService.findById(salesInvoice.getDeliveryNote().getId()).getDeliveryNoteDetails()){
@@ -88,15 +88,15 @@ public class SalesInvoiceServiceImpl  implements SalesInvoiceService {
     @Override
     public SalesInvoice update(SalesInvoice salesInvoice) {
         SalesInvoice savedSalesInvoice = findById(salesInvoice.getId());
-        int oldDeliveryNoteId = savedSalesInvoice.getDeliveryNote().getId();
+//        int oldDeliveryNoteId = savedSalesInvoice.getDeliveryNote().getId();
         int newDeliveryNoteId = salesInvoice.getDeliveryNote().getId();
 
-        if (oldDeliveryNoteId != newDeliveryNoteId){
+//        if (oldDeliveryNoteId != newDeliveryNoteId){
             for (SalesInvoiceDetail salesInvoiceDetail:savedSalesInvoice.getSalesInvoiceDetails())
                 salesInvoiceDetailService.delete(salesInvoiceDetail.getId());
             savedSalesInvoice.getSalesInvoiceDetails().clear();
 
-            for (DeliveryNoteDetail deliveryNoteDetail: deliveryNoteService.findById(salesInvoice.getDeliveryNote().getId()).getDeliveryNoteDetails()){
+            for (DeliveryNoteDetail deliveryNoteDetail: deliveryNoteService.findById(newDeliveryNoteId).getDeliveryNoteDetails()){
                 SalesInvoiceDetail salesInvoiceDetail = new SalesInvoiceDetail(0, salesInvoice,
                         deliveryNoteDetail.getProduct(), deliveryNoteDetail.getQuantity(),
                         deliveryNoteDetail.getProduct().getSelling_price() ,
@@ -104,7 +104,7 @@ public class SalesInvoiceServiceImpl  implements SalesInvoiceService {
                 savedSalesInvoice.getSalesInvoiceDetails().add(salesInvoiceDetail);
                 salesInvoiceDetailService.save(salesInvoiceDetail);
             }
-        }
+//        }
 
         savedSalesInvoice.setDate(salesInvoice.getDate());
         savedSalesInvoice.setStaff(salesInvoice.getStaff());

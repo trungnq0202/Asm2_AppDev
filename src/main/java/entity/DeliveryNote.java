@@ -14,7 +14,7 @@ public class DeliveryNote {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @OneToMany(mappedBy = "deliveryNote", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "deliveryNote", fetch = FetchType.EAGER)
     private List<DeliveryNoteDetail> deliveryNoteDetails;
 
     public DeliveryNote() {

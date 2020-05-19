@@ -23,7 +23,7 @@ public class Order {
     @ManyToOne
     private Provider provider;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderDetail> orderDetails;
 
     public List<OrderDetail> getOrderDetails() {

@@ -4,6 +4,9 @@ public class InventoryNote {
     private int productId;
     private InventoryNoteDetail inventoryDetail;
 
+    public InventoryNote() {
+    }
+
     public int getProductId() {
         return productId;
     }

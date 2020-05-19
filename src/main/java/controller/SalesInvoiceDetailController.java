@@ -19,20 +19,20 @@ public class SalesInvoiceDetailController {
         return salesInvoiceDetailService.findAll(pageIndex, pageSize);
     }
 
-    @RequestMapping(path = "sales_invoice_details/{id}", method = RequestMethod.GET)
-    public SalesInvoiceDetail getSalesInvoiceDetailById(@PathVariable int id){
-        return salesInvoiceDetailService.findById(id);
-    }
-
-    @RequestMapping(path = "sales_invoice_details", method = RequestMethod.POST)
-    public SalesInvoiceDetail addSSalesInvoiceDetail(@RequestBody SalesInvoiceDetail salesInvoiceDetail){
-        return salesInvoiceDetailService.save(salesInvoiceDetail);
-    }
-
-    @RequestMapping(path = "sales_invoice_details", method = RequestMethod.PUT)
-    public SalesInvoiceDetail updateSalesInvoiceDetail(@RequestBody SalesInvoiceDetail salesInvoiceDetail){
-        return salesInvoiceDetailService.update(salesInvoiceDetail);
-    }
+//    @RequestMapping(path = "sales_invoice_details/{id}", method = RequestMethod.GET)
+//    public SalesInvoiceDetail getSalesInvoiceDetailById(@PathVariable int id){
+//        return salesInvoiceDetailService.findById(id);
+//    }
+//
+//    @RequestMapping(path = "sales_invoice_details", method = RequestMethod.POST)
+//    public SalesInvoiceDetail addSSalesInvoiceDetail(@RequestBody SalesInvoiceDetail salesInvoiceDetail){
+//        return salesInvoiceDetailService.save(salesInvoiceDetail);
+//    }
+//
+//    @RequestMapping(path = "sales_invoice_details", method = RequestMethod.PUT)
+//    public SalesInvoiceDetail updateSalesInvoiceDetail(@RequestBody SalesInvoiceDetail salesInvoiceDetail){
+//        return salesInvoiceDetailService.update(salesInvoiceDetail);
+//    }
 
     @RequestMapping(path = "sales_invoice_details/{id}", method = RequestMethod.DELETE)
     public int deleteSalesInvoiceDetail(@PathVariable int id){

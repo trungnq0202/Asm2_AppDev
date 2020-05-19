@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import service.DeliveryNoteDetailService;
 import service.DeliveryNoteService;
 
 import java.util.Date;
@@ -20,6 +21,9 @@ public class DeliveryNoteServiceImpl implements DeliveryNoteService {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private DeliveryNoteDetailService deliveryNoteDetailService;
 
     @Override
     public PaginatedList<DeliveryNote> findAll(int pageIndex, int pageSize) {
@@ -61,6 +65,7 @@ public class DeliveryNoteServiceImpl implements DeliveryNoteService {
     public DeliveryNote save(DeliveryNote deliveryNote) {
         for (DeliveryNoteDetail deliveryNoteDetail: deliveryNote.getDeliveryNoteDetails()){
             deliveryNoteDetail.setDeliveryNote(deliveryNote);
+            deliveryNoteDetailService.save(deliveryNoteDetail);
         }
         sessionFactory.getCurrentSession().save(deliveryNote);
         return  deliveryNote;
@@ -70,6 +75,7 @@ public class DeliveryNoteServiceImpl implements DeliveryNoteService {
     public DeliveryNote update(DeliveryNote deliveryNote) {
         for (DeliveryNoteDetail deliveryNoteDetail: deliveryNote.getDeliveryNoteDetails()){
             deliveryNoteDetail.setDeliveryNote(deliveryNote);
+            deliveryNoteDetailService.update(deliveryNoteDetail);
         }
         sessionFactory.getCurrentSession().update(deliveryNote);
         return deliveryNote;
@@ -78,6 +84,9 @@ public class DeliveryNoteServiceImpl implements DeliveryNoteService {
     @Override
     public int delete(int id) {
         DeliveryNote deliveryNote = findById(id);
+        for (DeliveryNoteDetail deliveryNoteDetail: deliveryNote.getDeliveryNoteDetails()){
+            deliveryNoteDetailService.delete(deliveryNoteDetail.getId());
+        }
         sessionFactory.getCurrentSession().delete(deliveryNote);
         return id;
     }

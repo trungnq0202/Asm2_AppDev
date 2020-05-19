@@ -28,10 +28,10 @@ public class ReceivingNoteController {
         return receivingNoteService.findByDate(date, pageIndex, pageSize);
     }
 
-    @RequestMapping(path = "receiving_notes/{id}", method = RequestMethod.GET)
-    public ReceivingNote getReceivingNoteById(@PathVariable int id){
-        return receivingNoteService.findById(id);
-    }
+//    @RequestMapping(path = "receiving_notes/{id}", method = RequestMethod.GET)
+//    public ReceivingNote getReceivingNoteById(@PathVariable int id){
+//        return receivingNoteService.findById(id);
+//    }
 
     @RequestMapping(path = "receiving_notes", method = RequestMethod.POST)
     public ReceivingNote addReceivingNote(@RequestBody ReceivingNote receivingNote){

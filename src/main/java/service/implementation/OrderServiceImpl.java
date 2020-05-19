@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import service.OrderDetailService;
 import service.OrderService;
 
 import java.util.Date;
@@ -18,6 +19,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Autowired
+    private OrderDetailService orderDetailService;
 
     @Override
     public PaginatedList<Order> findAll(int pageIndex, int pageSize) {
@@ -59,6 +63,7 @@ public class OrderServiceImpl implements OrderService {
     public Order save(Order order) {
         for (OrderDetail orderDetail:order.getOrderDetails()){
             orderDetail.setOrder(order);
+            orderDetailService.save(orderDetail);
         }
         sessionFactory.getCurrentSession().save(order);
         return order;
@@ -68,6 +73,7 @@ public class OrderServiceImpl implements OrderService {
     public Order update(Order order) {
         for (OrderDetail orderDetail:order.getOrderDetails()){
             orderDetail.setOrder(order);
+            orderDetailService.update(orderDetail);
         }
         sessionFactory.getCurrentSession().update(order);
         return order;
@@ -76,6 +82,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int delete(int id) {
         Order order = findById(id);
+        for (OrderDetail orderDetail: order.getOrderDetails()){
+            orderDetailService.delete(orderDetail.getId());
+        }
         sessionFactory.getCurrentSession().delete(order);
         return id;
     }

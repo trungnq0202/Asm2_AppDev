@@ -92,7 +92,6 @@
 
 
 
-
   </dependencies>
 
   <build>
@@ -102,7 +101,6 @@
           <groupId>org.mortbay.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
           <version>8.1.16.v20140903</version>
-
         </plugin>
 
         <plugin>
